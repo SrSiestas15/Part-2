@@ -6,9 +6,11 @@ public class Plane : MonoBehaviour
 {
     public List<Vector2> points;
     public float newPointThreshold = 0.2f;
+    public Transform plane;
     Vector2 lastPosition;
     LineRenderer lineRenderer;
     Rigidbody2D rigidbody;
+    SpriteRenderer spriteRenderer;
     Vector2 currentPosition;
     public float speed = 1;
     public AnimationCurve landing;
@@ -44,6 +46,7 @@ public class Plane : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
         rigidbody = GetComponent<Rigidbody2D>();
         speed = Random.Range(1, 4);
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void FixedUpdate()
@@ -56,6 +59,21 @@ public class Plane : MonoBehaviour
             rigidbody.rotation = -angle;
         }
         rigidbody.MovePosition(rigidbody.position + (Vector2)transform.up * speed * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        spriteRenderer.color = Color.red;
+        if (Vector3.Distance(collision.transform.position, transform.position) < 3)
+        {
+            Destroy(gameObject);
+        }
+
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        spriteRenderer.color = Color.white;
     }
 
     void Update()
@@ -84,5 +102,10 @@ public class Plane : MonoBehaviour
                 lineRenderer.positionCount--;
             }
         }
+    }
+
+    void OnBecameInvisible() 
+    { 
+        Destroy(gameObject); 
     }
 }
