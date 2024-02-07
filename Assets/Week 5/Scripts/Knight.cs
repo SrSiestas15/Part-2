@@ -13,7 +13,8 @@ public class Knight : MonoBehaviour
     bool clickingOnSelf = false;
     public float health;
     public float maxHealth = 5;
-    Boolean isDead;
+    bool isDead;
+    public HealthBar healthBar;
 
     // Start is called before the first frame update
     void Start()
@@ -48,7 +49,7 @@ public class Knight : MonoBehaviour
     {
         if (isDead) return;
         clickingOnSelf = true;
-        takeDamage(1);
+        gameObject.SendMessage("TakeDamage", 1);
     }
 
     private void OnMouseUp()
@@ -56,7 +57,7 @@ public class Knight : MonoBehaviour
         clickingOnSelf = false;
     }
 
-    void takeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         health -= damage;
         health = Mathf.Clamp(health, 0, maxHealth);
@@ -67,6 +68,7 @@ public class Knight : MonoBehaviour
         }
         else
         {
+            isDead = false;
             animator.SetTrigger("TakeDamage");
         }
     }
