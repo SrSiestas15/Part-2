@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Week 6/Scenes/Scene A.unity
     guid: 88e2005b300af154687db92191ce5461
   - enabled: 1
+    path: Assets/Week 6/Scenes/Scene B.unity
+    guid: 2b8533515fad55742878f418cee641b0
+  - enabled: 1
     path: Assets/Week 5/Scenes/Replacement Week 5.unity
     guid: a47a196180f8abe46a2a509c7d58a4e2
   m_configObjects: {}
