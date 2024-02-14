@@ -8,13 +8,19 @@ public class HealthBar : MonoBehaviour
 {
     public Slider slider;
 
+    private void Start()
+    {
+
+    }
     public void TakeDamage(float value)
     {
         slider.value -= value;
     }
 
-    void SetHealth(float value)
+    void SetHealth(float health)
     {
-        slider.value = value;
+        slider.value = health;
+        Debug.Log("message sent");
     }
+
 }

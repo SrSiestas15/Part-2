@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ReplacementKnight : MonoBehaviour
 {
@@ -21,8 +22,13 @@ public class ReplacementKnight : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        health = maxHealth;
-        isDead = false;
+        health = PlayerPrefs.GetFloat("Health",5);
+        gameObject.SendMessage("SetHealth", health, SendMessageOptions.DontRequireReceiver);
+        if (health == 0)
+        {
+            isDead = true;
+            animator.SetTrigger("Death");
+        }
     }
 
     private void FixedUpdate()
@@ -58,7 +64,7 @@ public class ReplacementKnight : MonoBehaviour
     {
         if (isDead) return;
         clickingOnSelf = true;
-        SendMessage("TakeDamage", 2);
+        SendMessage("TakeDamage", 1);
     }
     private void OnMouseUp()
     {
@@ -68,7 +74,7 @@ public class ReplacementKnight : MonoBehaviour
     {
         health -= damage;
         health = Mathf.Clamp(health, 0, maxHealth);
-        if (health == 0)
+        if (health <= 0)
         {
             isDead = true;
             animator.SetTrigger("Death");
@@ -78,5 +84,6 @@ public class ReplacementKnight : MonoBehaviour
             isDead = false;
             animator.SetTrigger("TakeDamage");
         }
+         PlayerPrefs.SetFloat("Health",health);
     }
 }
