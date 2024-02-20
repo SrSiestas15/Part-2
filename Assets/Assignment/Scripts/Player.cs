@@ -34,11 +34,22 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetMouseButtonDown(0))
         {
             destination = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
         animator.SetFloat("Movement", movement.magnitude);
         animator.SetFloat("Direction", movement.x);
+    }
+
+    public void EnterPicnic()
+    {
+        PlayerPrefs.SetFloat("Flowers", 0);
+        animator.SetTrigger("OnPicnic");
+    }
+
+    public void ExitPicnic()
+    {
+
     }
 }
