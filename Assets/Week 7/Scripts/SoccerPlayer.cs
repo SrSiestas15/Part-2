@@ -7,8 +7,10 @@ using UnityEngine;
 public class SoccerPlayer : MonoBehaviour
 {
     SpriteRenderer spriteRenderer;
+    Rigidbody2D rb;
     public Color selectedColour;
     public Color unselectedColour;
+    public float speed = 10f;
     bool selected = false;
     bool clickingOnSelf = false;
 
@@ -16,6 +18,7 @@ public class SoccerPlayer : MonoBehaviour
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
         Selected(false);
     }
 
@@ -39,6 +42,11 @@ public class SoccerPlayer : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Selected(true);
+        Controller.SetSelectedPlayer(this);
+    }
+
+    public void Move(Vector2 direction)
+    {
+        rb.AddForce(direction * speed, ForceMode2D.Impulse);
     }
 }
