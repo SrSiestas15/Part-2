@@ -13,6 +13,7 @@ public class GoalkeeperController : MonoBehaviour
     Vector2 normalized;
     float distance;
     public float offGoal = 10;
+    float speed = 5;
     float chosenDist;
 
     void Start()
@@ -31,10 +32,11 @@ public class GoalkeeperController : MonoBehaviour
             chosenDist = Vector2.Distance(realGoal.position, Controller.selectedPlayer.transform.position);
             if (chosenDist < 6)
             {
-                keeperRb.transform.position = normalized * distance / offGoal;
+                //keeperRb.transform.position = normalized * distance / offGoal;
+                keeperRb.transform.position = Vector3.MoveTowards((Vector3)keeperRb.transform.position, (Vector3)normalized * distance / offGoal, Time.deltaTime * speed);
                 Debug.Log("GRAGGHHGHG");
             } else {
-                keeperRb.transform.position = normalized * distance / offGoal*.3f;
+                keeperRb.transform.position = Vector3.MoveTowards((Vector3)keeperRb.transform.position, (Vector3)normalized * distance / offGoal*.3f, Time.deltaTime * speed);
                 Debug.Log("shit");
             }
         }
