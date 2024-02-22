@@ -7,7 +7,7 @@ using UnityEngine;
 public class GoalkeeperController : MonoBehaviour
 {
     public Rigidbody2D keeperRb;
-    Transform Transform;
+    public Transform realGoal;
 
     Vector2 direction;
     Vector2 normalized;
@@ -27,8 +27,16 @@ public class GoalkeeperController : MonoBehaviour
         {
             direction =  (Controller.selectedPlayer.transform.position - gameObject.transform.position);
             distance = direction.magnitude;
-            direction = direction.normalized;
-            keeperRb.transform.position = direction;
+            normalized = direction.normalized;
+            chosenDist = Vector2.Distance(realGoal.position, Controller.selectedPlayer.transform.position);
+            if (chosenDist < 6)
+            {
+                keeperRb.transform.position = normalized * distance / offGoal;
+                Debug.Log("GRAGGHHGHG");
+            } else {
+                keeperRb.transform.position = normalized * distance / offGoal*.3f;
+                Debug.Log("shit");
+            }
         }
     }
 }

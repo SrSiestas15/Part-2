@@ -248,3 +248,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedColour: {r: 1, g: 0.7866571, b: 0.109803915, a: 1}
   unselectedColour: {r: 0.62352943, g: 0, b: 0, a: 1}
+  speed: 104.6
